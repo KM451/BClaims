@@ -1,0 +1,23 @@
+﻿@page "/"
+
+<PageTitle>Zestawienie zleceń</PageTitle>
+
+<div class="row">
+    @if (_reports == null)
+    {
+        <p>Pobieranie danych...</p>
+    }
+    else if (!_reports.Any())
+    {
+        <p>Brak zleceń.</p>
+    }
+    else
+    {
+        <BClaimTemplate DisplayedReportState="ReportState.zaakceptowane" Reports="@_reports" />
+        <br />
+        <br />
+        <BClaimTemplate DisplayedReportState="ReportState.zgłoszone" Reports="@_reports" />
+    }
+</div>
+
+

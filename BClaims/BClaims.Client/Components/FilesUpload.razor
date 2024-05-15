@@ -1,0 +1,10 @@
+﻿<RadzenComponents />
+<div class="col-md-6 p-3">
+    <RadzenCard>
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Wybierz pliki</RadzenText>
+        <RadzenUpload @ref="upload" Auto="false" Multiple="true" Url="api/v1/upload/multiple" Change=@(args => OnChange(args, "Manual Upload")) InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
+                      Progress=@(args => OnProgress(args, "Manual Upload")) class="w-100" />
+        <RadzenButton Text="Upload" Click=@((args) =>OnUpload(args)) class="d-block mt-4" />
+    </RadzenCard>
+</div>
+

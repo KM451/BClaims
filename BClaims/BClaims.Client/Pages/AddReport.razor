@@ -1,0 +1,64 @@
+﻿@page "/report"
+<RadzenComponents />
+<PageTitle>Nowe zlecenie</PageTitle>
+
+<EditForm Model="_newReport" OnValidSubmit="Save">
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    <div Class="rz-p-0 rz-p-md-12">
+
+        <RadzenRow>
+            <RadzenColumn Size="12" SizeSM="6">
+                <RadzenStack>
+                    <RadzenFormField Text="Kod" Variant="@variant">
+                        <RadzenTextBox @bind-Value="@_newReport.ItemCode" />
+                    </RadzenFormField>
+                    <RadzenFormField Text="Nazwa" Variant="@variant">
+                        <RadzenTextBox @bind-Value="@_newReport.ItemName" />
+                    </RadzenFormField>
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeSM="6">
+                <RadzenStack>
+                    <RadzenFormField Text="Ilość" Variant="@variant">
+                        <RadzenNumeric @bind-Value="@_newReport.Qty" />
+                    </RadzenFormField>
+                    <RadzenFormField Text="Nr ZSE" Variant="@variant">
+                        <RadzenTextBox @bind-Value="@_newReport.ZseNo" />
+                    </RadzenFormField>
+
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenStack Gap="1rem" Orientation="Orientation.Vertical" AlignItems="AlignItems.Stretch" Class="rz-p-2 rz-mb-6 rz-border-radius-1" Style="border: var(--rz-grid-cell-border);">
+            <RadzenFormField Text="Opis" Variant="@variant">
+                <RadzenTextArea @bind-Value="@_newReport.Description" />
+            </RadzenFormField>
+            <ValidationMessage For="()=>_newReport.Description" />
+            <SerialNumbersInput NewSerialsList="OnChangeSerialsList" />
+        </RadzenStack>   
+        <br /><br />
+        <FilesInput />
+        <br /><br />
+        <FilesUpload />
+    </div>
+    
+    <div class="form-group mt-3">
+        @if (_inProgress)
+        {
+            <button class="btn-link btn-primary btn-lg btn-spinner" disabled>
+                <img src="/loading.gif" />
+                <span>Zapisywanie...</span>
+            </button>
+        }
+        else
+        {
+            <button class="btn-link btn-primary btn-lg">
+                Zapisz
+            </button>
+        }
+
+    </div>
+</EditForm>
+

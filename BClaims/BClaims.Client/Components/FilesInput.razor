@@ -1,0 +1,44 @@
+﻿@using BClaims.Shared.AttachmentUrls.Commands.AddAttachmentUrl
+<RadzenComponents/>
+<RadzenCard>
+    <div>
+        <RadzenDataGrid @ref="filesGrid" Density="Density.Compact" AllowFiltering="false" AllowPaging="true" PageSize="5" AllowSorting="false"
+                        Data="@_selectedFiles" TItem="AddAttachmentUrlCommand">
+            <Columns>
+                <RadzenDataGridColumn Width="80px" Title="#" TextAlign="TextAlign.Center">
+                    <Template Context="data">
+                        @(_selectedFiles.IndexOf(data) + 1)
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn Property="FileName" Title="Nazwa pliku" Width="300px" />
+                <RadzenDataGridColumn Title="Rozmiar" Width="200px">
+                    <Template Context="data">
+                        @($"{data.Content.Count().ToString()} Bytes")
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn   Width="100px">
+                    <Template Context="data">
+                        <RadzenButton Text="Usuń" Click=@(() => RemoveFile(data)) />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </div>
+</RadzenCard>
+
+<div>
+    @if (inProgres)
+    {
+        <span>Ładowanie...</span>
+    }
+    else
+    {
+        
+        <div class="form-group mt-3">
+            <RadzenButton Click=@(() => UploadFiles()) Text="Prześlij" class="btn-sm" />
+            <InputFile OnChange="LoadFile"  class="btn-sm" accept="image/png, image/jpg, image/jpeg" />
+        </div>
+
+    }
+</div>
+

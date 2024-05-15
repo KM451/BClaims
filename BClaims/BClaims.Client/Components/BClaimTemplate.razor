@@ -1,0 +1,35 @@
+﻿@using System.Linq
+
+@inject DialogService DialogService
+
+<p>Status zgłoszenia: @DisplayedReportState</p>
+<RadzenDataGrid @ref="reportsGrid" Density="Density.Compact" AllowFiltering="true" FilterPopupRenderMode="PopupRenderMode.OnDemand" AllowPaging="true" PageSize="5" AllowSorting="true"
+                Data="@_reports" TItem="ReportsDto">
+                
+    <Columns>
+        <RadzenDataGridColumn Width="80px" Title="#" Filterable="false" Sortable="false" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                @(_reports.IndexOf(data) + 1)
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Width="120px" Property="ReportNo" Title="Numer zgłoszenia">
+            <FooterTemplate>
+                Łącznie zgłoszeń: <b>@_reports.Count</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Width="200px" Property="ReportDate" Title="Data zgłoszenia" FormatString="{0:d}" TextAlign="TextAlign.Center">
+            <FooterTemplate>
+                Data ostatniego zgłoszenia: <b>@String.Format("{0:d}", _reports.OrderBy(o => o.ReportDate).LastOrDefault()?.ReportDate)</b>
+            </FooterTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Width="160px" Property="ItemCode" Title="Kod produktu" />
+        <RadzenDataGridColumn Width="160px" Property="Id" Filterable="false" Sortable="false">
+            <Template Context="data">
+                <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Lighter" Icon="info" class="m-1" Click=@(() => OpenReport(data.Id)) Text="Szczegóły" />
+            </Template>
+        </RadzenDataGridColumn>
+
+
+    </Columns>
+</RadzenDataGrid>
+

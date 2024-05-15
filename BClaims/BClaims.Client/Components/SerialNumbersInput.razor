@@ -1,0 +1,11 @@
+﻿<RadzenCard>
+    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Numery seryjne</RadzenText>
+    <div class="rz-p-sm-12 rz-text-align-center">
+        <RadzenListBox @bind-Value=@selectedValue Data=@SerialsList Style="width: 100%; max-width: 400px; height:200px" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select company" }})" />
+    </div>
+    <RadzenFormField Text="Nowy numer seryjny" >
+        <RadzenTextBox @bind-Value="@newSerialNo" />
+    </RadzenFormField>
+    <RadzenButton Text="Dodaj" Click=@(() => AddSerial()) />
+    <RadzenButton Text="Usuń" Click=@(() => RemoveSerial()) />
+</RadzenCard>
